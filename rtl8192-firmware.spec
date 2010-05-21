@@ -1,7 +1,7 @@
 Summary:	Firmware for the RTL8192SE chipset
 Name:		rtl8192-firmware
 Version:	0015
-Release:	0.2
+Release:	0.3
 License:	GPL
 Group:		Base/Kernel
 Source0:	ftp://WebUser:pGL7E6v@202.134.71.21/cn/wlan/rtl8192se_linux_2.6.%{version}.0127.2010.tar.gz
@@ -17,12 +17,16 @@ This package contains the firmware for the rtl8192se driver.
 Ten pakiet zawiera firmware dla sterownika rtl8192se.
 
 %prep
-%setup -qn rtl8192se_linux_2.6.%{version}.0127.2010
+%setup -qc
+install -d firmware
+mv rtl8192se_linux_2.6.%{version}.0127.2010/firmware/* firmware
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT/lib/firmware
 cp -a firmware/* $RPM_BUILD_ROOT/lib/firmware
+rm -v $RPM_BUILD_ROOT/lib/firmware/*/*.txt
+ln -s RTL8192SE $RPM_BUILD_ROOT/lib/firmware/RTL8192SU
 
 %clean
 rm -rf $RPM_BUILD_ROOT
